@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    max-width: 1000px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+    font-family: 'Crimson Pro', serif;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.input-section {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#mathDisplay {
+    width: 100%;
+    min-height: 120px;
+    padding: 20px;
+    font-size: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 3px solid #e0e0e0;
+    border-radius: 16px;
+    background: #fafafa;
+    line-height: 1.6;
+    cursor: text;
+    position: relative;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+}
+
+#mathDisplay:focus {
+    outline: none;
+    border-color: #0f3460;
+    background: white;
+    box-shadow: 0 4px 20px rgba(15, 52, 96, 0.15);
+}
+
+#mathDisplay:empty:before {
+    content: 'Type your expression...';
+    color: #aaa;
+    font-size: 24px;
+}
+
+.superscript {
+    font-size: 0.65em;
+    vertical-align: super;
+    color: #0f3460;
+    font-weight: 600;
+}
+
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 4px;
+    font-size: 0.9em;
+}
+
+.fraction .numerator,
+.fraction .denominator {
+    padding: 2px 8px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.fraction .fraction-line {
+    width: 100%;
+    height: 2px;
+    background: #333;
+    margin: 2px 0;
+}
+
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin: 0 2px;
+}
+
+.sqrt-radical {
+    width: 14px;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.sqrt-radical path {
+    fill: none;
+    stroke: #0f3460;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sqrt-content {
+    border-top: 3px solid #0f3460;
+    padding: 4px 10px 4px 4px;
+    display: inline-block;
+    min-width: 20px;
+    margin-top: 2px;
+}
+
+.parentheses {
+    display: inline-flex;
+    align-items: center;
+}
+
+.function-name {
+    color: #0f3460;
+    font-weight: 600;
+    margin-right: 2px;
+}
+
+.abs-bars {
+    display: inline-flex;
+    align-items: center;
+}
+
+.abs-content {
+    border-left: 3px solid #333;
+    border-right: 3px solid #333;
+    padding: 2px 8px;
+    display: inline-block;
+    min-width: 20px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.math-btn {
+    padding: 16px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border: 2px solid #d0d0d0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: #333;
+}
+
+.math-btn:hover {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    color: white;
+    border-color: #0f3460;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(15, 52, 96, 0.3);
+}
+
+.math-btn:active {
+    transform: translateY(-1px);
+}
+
+.evaluate-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 25px rgba(15, 52, 96, 0.3);
+}
+
+.evaluate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 35px rgba(15, 52, 96, 0.4);
+}
+
+.result-section {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+    border-left: 6px solid #4caf50;
+    display: none;
+}
+
+.result-label {
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#result {
+    font-size: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #1b5e20;
+    font-weight: 700;
+}
+
+.error {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+    border-left: 6px solid #f44336;
+}
+
+.error .result-label {
+    color: #c62828;
+}
+
+.error #result {
+    color: #b71c1c;
+}
+
+.info-box {
+    background: rgba(15, 52, 96, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25px;
+    font-size: 13px;
+    color: #0f3460;
+    border: 1px solid rgba(15, 52, 96, 0.1);
+}
+
+.info-box strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hidden-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mode-indicator {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    background: #0f3460;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: none;
+}
+
+.mode-indicator.active {
+    display: block;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.raw-view {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #666;
+    font-family: 'JetBrains Mono', monospace;
+    word-wrap: break-word;
+}
+
+.raw-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: #999;
+}

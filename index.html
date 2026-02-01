@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Math Input</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Crimson+Pro:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Scientific Math Input</h1>
+        <p class="subtitle">Type naturally • Auto-formatting • Real-time conversion</p>
+
+        <div class="input-section">
+            <div class="mode-indicator" id="modeIndicator"></div>
+            <label for="mathDisplay">Mathematical Expression</label>
+            <div id="mathDisplay" contenteditable="true" spellcheck="false"></div>
+            <div class="raw-view">
+                <div class="raw-label">Raw Expression (for evaluation):</div>
+                <div id="rawExpression">Type to see raw expression...</div>
+            </div>
+        </div>
+
+        <div class="button-grid">
+            <button class="math-btn" onclick="insertSymbol('sqrt')">√</button>
+            <button class="math-btn" onclick="insertSymbol('power')">x^n</button>
+            <button class="math-btn" onclick="insertSymbol('fraction')">(a/b)</button>
+            <button class="math-btn" onclick="insertSymbol('abs')">|x|</button>
+            <button class="math-btn" onclick="insertText('π')">π</button>
+            <button class="math-btn" onclick="insertText('e')">e</button>
+
+            <button class="math-btn" onclick="insertFunction('sin')">sin</button>
+            <button class="math-btn" onclick="insertFunction('cos')">cos</button>
+            <button class="math-btn" onclick="insertFunction('tan')">tan</button>
+            <button class="math-btn" onclick="insertFunction('asin')">asin</button>
+            <button class="math-btn" onclick="insertFunction('acos')">acos</button>
+            <button class="math-btn" onclick="insertFunction('atan')">atan</button>
+
+            <button class="math-btn" onclick="insertFunction('log')">log</button>
+            <button class="math-btn" onclick="insertFunction('ln')">ln</button>
+            <button class="math-btn" onclick="insertFunction('exp')">exp</button>
+            <button class="math-btn" onclick="insertFunction('ceil')">ceil</button>
+            <button class="math-btn" onclick="insertFunction('floor')">floor</button>
+            <button class="math-btn" onclick="insertFunction('round')">round</button>
+
+            <button class="math-btn" onclick="insertText('(')">(</button>
+            <button class="math-btn" onclick="insertText(')')">)</button>
+            <button class="math-btn" onclick="insertText(' + ')">+</button>
+            <button class="math-btn" onclick="insertText(' - ')">−</button>
+            <button class="math-btn" onclick="insertText(' * ')">×</button>
+            <button class="math-btn" onclick="insertText(' = ')">=</button>
+        </div>
+
+        <button class="evaluate-btn" onclick="evaluateExpression()">Calculate Result</button>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-label">Result:</div>
+            <div id="result"></div>
+        </div>
+
+        <div class="info-box">
+            <strong>🎯 Smart Auto-Formatting:</strong>
+            • Type "sqrt" → converts to √ symbol with overline<br>
+            • Type "sin", "cos", "tan", "log", etc. → function with cursor in parentheses<br>
+            • Type "abs" → creates |x| bars automatically<br>
+            • Type "^" → cursor moves to superscript (Arrow Right or Space to exit)<br>
+            • Type "/" → cursor moves to denominator automatically<br>
+            <br>
+            <strong>⌨️ Navigation:</strong>
+            • Arrow Right, Space, Tab, or Enter to exit special modes<br>
+            • Escape to cancel current mode<br>
+            • Backspace works naturally in all modes
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
