@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathematical Expression Editor</title>
-    
+
     <!-- MathQuill CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1/build/mathquill.css">
-    
+
     <!-- KaTeX CSS for rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -33,7 +34,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
         }
 
@@ -52,11 +53,24 @@
         }
 
         /* Toolbar styles */
+        .toolbar-section {
+            margin-bottom: 20px;
+        }
+
+        .toolbar-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 5px;
+        }
+
         .toolbar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
-            margin-bottom: 25px;
             padding: 20px;
             background: #f8f9fa;
             border-radius: 12px;
@@ -266,7 +280,6 @@
             }
         }
 
-        /* Symbol hint */
         .symbol-hint {
             font-size: 12px;
             color: #999;
@@ -275,44 +288,92 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>📐 Mathematical Expression Editor</h1>
         <p class="subtitle">Create beautiful mathematical expressions with visual editing</p>
 
-        <!-- Toolbar with math operation buttons -->
-        <div class="toolbar">
-            <button onclick="insertFraction()" title="Fraction">
-                <span>➗</span> Fraction
-            </button>
-            <button onclick="insertSquareRoot()" title="Square Root">
-                <span>√</span> Root
-            </button>
-            <button onclick="insertSuperscript()" title="Superscript">
-                <span>x²</span> Power
-            </button>
-            <button onclick="insertSubscript()" title="Subscript">
-                <span>xᵢ</span> Subscript
-            </button>
-            <button onclick="insertSummation()" title="Summation">
-                <span>Σ</span> Sum
-            </button>
-            <button onclick="insertIntegral()" title="Integral">
-                <span>∫</span> Integral
-            </button>
-            <button onclick="insertParentheses()" title="Parentheses">
-                <span>()</span> Parens
-            </button>
-            <button onclick="insertMatrix()" title="Matrix">
-                <span>[ ]</span> Matrix
-            </button>
+        <!-- Basic Operations Toolbar -->
+        <div class="toolbar-section">
+            <div class="toolbar-title">Basic Operations</div>
+            <div class="toolbar">
+                <button onclick="insertText('\\frac')" title="Fraction">
+                    <span>➗</span> Fraction
+                </button>
+                <button onclick="insertText('\\sqrt')" title="Square Root">
+                    <span>√</span> Root
+                </button>
+                <button onclick="insertText('^')" title="Superscript">
+                    <span>x²</span> Power
+                </button>
+                <button onclick="insertText('_')" title="Subscript">
+                    <span>xᵢ</span> Subscript
+                </button>
+                <button onclick="insertText('\\sum')" title="Summation">
+                    <span>Σ</span> Sum
+                </button>
+                <button onclick="insertText('\\int')" title="Integral">
+                    <span>∫</span> Integral
+                </button>
+            </div>
+        </div>
+
+        <!-- Trigonometric Functions Toolbar -->
+        <div class="toolbar-section">
+            <div class="toolbar-title">Trigonometric Functions</div>
+            <div class="toolbar">
+                <button onclick="insertText('\\sin')" title="Sine">
+                    sin(x)
+                </button>
+                <button onclick="insertText('\\cos')" title="Cosine">
+                    cos(x)
+                </button>
+                <button onclick="insertText('\\tan')" title="Tangent">
+                    tan(x)
+                </button>
+                <button onclick="insertText('csc')" title="Cosecant">
+                    csc(x)
+                </button>
+                <button onclick="insertText('sec')" title="Secant">
+                    sec(x)
+                </button>
+                <button onclick="insertText('cot')" title="Cotangent">
+                    cot(x)
+                </button>
+            </div>
+        </div>
+
+        <!-- Inverse Trigonometric Functions Toolbar -->
+        <div class="toolbar-section">
+            <div class="toolbar-title">Inverse Trigonometric Functions</div>
+            <div class="toolbar">
+                <button onclick="insertInverse('\\sin')" title="Inverse Sine">
+                    sin⁻¹(x)
+                </button>
+                <button onclick="insertInverse('\\cos')" title="Inverse Cosine">
+                    cos⁻¹(x)
+                </button>
+                <button onclick="insertInverse('\\tan')" title="Inverse Tangent">
+                    tan⁻¹(x)
+                </button>
+                <button onclick="insertInverse('csc')" title="Inverse Cosecant">
+                    csc⁻¹(x)
+                </button>
+                <button onclick="insertInverse('sec')" title="Inverse Secant">
+                    sec⁻¹(x)
+                </button>
+                <button onclick="insertInverse('cot')" title="Inverse Cotangent">
+                    cot⁻¹(x)
+                </button>
+            </div>
         </div>
 
         <!-- Math input field -->
         <div class="editor-section">
             <div class="section-label">✏️ Input Editor</div>
             <div id="math-field"></div>
-            <p class="symbol-hint">Click toolbar buttons or type naturally. Use keyboard shortcuts like ^ for power, _ for subscript</p>
+            <p class="symbol-hint">Click toolbar buttons or type naturally. Use ^ for power, _ for subscript</p>
         </div>
 
         <!-- Output display -->
@@ -344,10 +405,10 @@
 
     <!-- jQuery (required for MathQuill) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <!-- MathQuill JS -->
     <script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1/build/mathquill.min.js"></script>
-    
+
     <!-- KaTeX JS for rendering -->
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 
@@ -360,22 +421,14 @@
         let mathField;
 
         // Initialize the math field when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mathFieldSpan = document.getElementById('math-field');
-            
+
             // Create editable MathQuill field
             mathField = MQ.MathField(mathFieldSpan, {
                 spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: false,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: false,
-                autoCommands: 'pi theta sqrt sum int',
-                autoOperatorNames: 'sin cos tan log ln',
                 handlers: {
-                    edit: function() {
+                    edit: function () {
                         updateOutput();
                     }
                 }
@@ -383,18 +436,37 @@
 
             // Focus the field
             mathField.focus();
-            
+
             // Initial update
             updateOutput();
         });
 
+        // Simple insert function - just types text
+        function insertText(text) {
+            if (text === '\\frac' || text === '\\sqrt' || text === '\\sum' || text === '\\int') {
+                mathField.cmd(text);
+            } else if (text === '^' || text === '_') {
+                mathField.cmd(text);
+            } else {
+                mathField.cmd(text);
+            }
+            mathField.focus();
+        }
+
+        // Insert inverse trig function
+        function insertInverse(func) {
+            const currentLatex = mathField.latex();
+            mathField.latex(currentLatex + func + '^{-1}');
+            mathField.focus();
+        }
+
         // Update the LaTeX and rendered output
         function updateOutput() {
             const latex = mathField.latex();
-            
+
             // Update LaTeX display
             document.getElementById('latex-output').textContent = latex || '(empty)';
-            
+
             // Render with KaTeX
             const renderedOutput = document.getElementById('rendered-output');
             try {
@@ -411,54 +483,12 @@
             }
         }
 
-        // Toolbar functions
-        function insertFraction() {
-            mathField.cmd('\\frac');
-            mathField.focus();
-        }
-
-        function insertSquareRoot() {
-            mathField.cmd('\\sqrt');
-            mathField.focus();
-        }
-
-        function insertSuperscript() {
-            mathField.cmd('^');
-            mathField.focus();
-        }
-
-        function insertSubscript() {
-            mathField.cmd('_');
-            mathField.focus();
-        }
-
-        function insertSummation() {
-            mathField.cmd('\\sum');
-            mathField.focus();
-        }
-
-        function insertIntegral() {
-            mathField.cmd('\\int');
-            mathField.focus();
-        }
-
-        function insertParentheses() {
-            mathField.cmd('\\left(');
-            mathField.cmd('\\right)');
-            mathField.keystroke('Left');
-            mathField.focus();
-        }
-
-        function insertMatrix() {
-            mathField.write('\\begin{bmatrix}  &  \\\\ & \\end{bmatrix}');
-            mathField.focus();
-        }
-
         // Clear the math field
         function clearField() {
             mathField.latex('');
             mathField.focus();
             updateOutput();
+            document.getElementById('result-section').style.display = 'none';
             showToast('Field cleared');
         }
 
@@ -473,7 +503,6 @@
             navigator.clipboard.writeText(latex).then(() => {
                 showToast('LaTeX copied to clipboard!');
             }).catch(() => {
-                // Fallback for older browsers
                 const textarea = document.createElement('textarea');
                 textarea.value = latex;
                 textarea.style.position = 'fixed';
@@ -491,7 +520,7 @@
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 2000);
@@ -500,48 +529,46 @@
         // Calculate expression if it contains no variables
         function calculateExpression() {
             const latex = mathField.latex();
-            
+
             if (!latex) {
                 showToast('Nothing to calculate');
                 return;
             }
 
             try {
-                // Convert LaTeX to a format that math.js can understand
                 let expression = latexToMathJs(latex);
-                
-                // Check if expression contains variables (letters except known constants)
-                const hasVariables = /[a-z]/i.test(expression.replace(/pi|e|sqrt|sin|cos|tan|log|ln|abs|exp/gi, ''));
-                
+                console.log('Original LaTeX:', latex);
+                console.log('Converted expression:', expression);
+
+                const hasVariables = /[a-z]/i.test(expression.replace(/pi|e|sqrt|sin|cos|tan|csc|sec|cot|asin|acos|atan|acsc|asec|acot|log|ln|abs|exp/gi, ''));
+
                 if (hasVariables) {
                     showToast('Expression contains variables - cannot calculate');
                     document.getElementById('result-section').style.display = 'none';
                     return;
                 }
 
-                // Evaluate the expression
                 const result = math.evaluate(expression);
-                
-                // Display the result
+                console.log('Result:', result);
+
                 const resultOutput = document.getElementById('result-output');
                 const resultSection = document.getElementById('result-section');
-                
-                // Format the result
+
                 let displayResult;
                 if (typeof result === 'number') {
-                    // Round to reasonable precision
-                    displayResult = Math.abs(result) < 0.0001 || Math.abs(result) > 1e10 
-                        ? result.toExponential(6) 
+                    displayResult = Math.abs(result) < 0.0001 || Math.abs(result) > 1e10
+                        ? result.toExponential(6)
                         : result.toPrecision(10).replace(/\.?0+$/, '');
                 } else {
                     displayResult = result.toString();
                 }
-                
+
                 resultOutput.textContent = displayResult;
                 resultSection.style.display = 'block';
                 showToast('Calculated successfully!');
-                
+
             } catch (error) {
+                console.error('Calculation error:', error);
                 showToast('Cannot calculate: ' + error.message);
                 document.getElementById('result-section').style.display = 'none';
             }
@@ -550,71 +577,86 @@
         // Convert LaTeX to Math.js compatible format
         function latexToMathJs(latex) {
             let expr = latex;
-            
+
             // Handle fractions: \frac{a}{b} -> (a)/(b)
             expr = expr.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '(($1)/($2))');
-            
+
             // Handle square roots: \sqrt{x} or \sqrt[n]{x}
             expr = expr.replace(/\\sqrt\[([^\]]+)\]\{([^}]+)\}/g, '(($2)^(1/($1)))');
             expr = expr.replace(/\\sqrt\{([^}]+)\}/g, 'sqrt($1)');
-            
-            // Handle summations: \sum_{i=a}^{b} -> sum from a to b
-            // This is complex and requires specific handling - for now, show error
+
+            // Handle summations
             if (expr.includes('\\sum')) {
                 throw new Error('Summation notation requires bounds - use numeric values');
             }
-            
-            // Handle integrals - too complex for simple calculation
+
+            // Handle integrals
             if (expr.includes('\\int')) {
                 throw new Error('Integral calculation not supported');
             }
-            
+
+            // Handle inverse trigonometric functions BEFORE handling superscripts
+            // Match patterns like \sin^{-1}, \cos^{-1}, etc.
+            expr = expr.replace(/\\sin\s*\^\s*\{-1\}/g, 'asin');
+            expr = expr.replace(/\\cos\s*\^\s*\{-1\}/g, 'acos');
+            expr = expr.replace(/\\tan\s*\^\s*\{-1\}/g, 'atan');
+            expr = expr.replace(/csc\s*\^\s*\{-1\}/g, 'acsc');
+            expr = expr.replace(/sec\s*\^\s*\{-1\}/g, 'asec');
+            expr = expr.replace(/cot\s*\^\s*\{-1\}/g, 'acot');
+
+            // Also handle without backslash for csc, sec, cot
+            expr = expr.replace(/\\?csc\^\{-1\}/g, 'acsc');
+            expr = expr.replace(/\\?sec\^\{-1\}/g, 'asec');
+            expr = expr.replace(/\\?cot\^\{-1\}/g, 'acot');
+
             // Handle superscripts: a^{b} -> a^(b)
             expr = expr.replace(/\^\{([^}]+)\}/g, '^($1)');
             expr = expr.replace(/\^(\w)/g, '^$1');
-            
+
             // Handle subscripts - remove them for calculation
             expr = expr.replace(/_\{[^}]+\}/g, '');
             expr = expr.replace(/_(\w)/g, '');
-            
-            // Handle common functions
+
+            // Handle regular trigonometric functions
             expr = expr.replace(/\\sin/g, 'sin');
             expr = expr.replace(/\\cos/g, 'cos');
             expr = expr.replace(/\\tan/g, 'tan');
+            expr = expr.replace(/\\csc/g, 'csc');
+            expr = expr.replace(/\\sec/g, 'sec');
+            expr = expr.replace(/\\cot/g, 'cot');
+
+            // Handle csc, sec, cot without backslash
+            // Note: these need to be kept as they are already correct
+
+            // Handle logarithmic functions
             expr = expr.replace(/\\log/g, 'log10');
             expr = expr.replace(/\\ln/g, 'log');
-            
+
             // Handle parentheses
             expr = expr.replace(/\\left\(/g, '(');
             expr = expr.replace(/\\right\)/g, ')');
             expr = expr.replace(/\\left\[/g, '[');
             expr = expr.replace(/\\right\]/g, ']');
-            
+            expr = expr.replace(/\\left/g, '');
+            expr = expr.replace(/\\right/g, '');
+
             // Handle common constants
             expr = expr.replace(/\\pi/g, 'pi');
-            
+
             // Remove any remaining backslashes and curly braces
             expr = expr.replace(/\\/g, '');
             expr = expr.replace(/[{}]/g, '');
-            
+
             // Handle implicit multiplication (e.g., 2pi -> 2*pi)
             expr = expr.replace(/(\d)(pi|e|\()/g, '$1*$2');
             expr = expr.replace(/\)([\d(])/g, ')*$1');
-            
+
             // Remove spaces
             expr = expr.replace(/\s+/g, '');
-            
+
             return expr;
         }
-
-        // Keyboard shortcuts info
-        console.log('Keyboard shortcuts:');
-        console.log('^ - superscript');
-        console.log('_ - subscript');
-        console.log('/ - fraction');
-        console.log('sqrt - square root');
-        console.log('sum - summation');
-        console.log('int - integral');
     </script>
 </body>
+
 </html>
